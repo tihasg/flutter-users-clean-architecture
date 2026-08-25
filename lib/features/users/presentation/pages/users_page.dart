@@ -6,6 +6,7 @@ import '../bloc/users_bloc.dart';
 import '../bloc/users_event.dart';
 import '../bloc/users_state.dart';
 import '../widgets/user_list_item.dart';
+import 'user_details_page.dart';
 
 class UsersPage extends StatelessWidget {
   const UsersPage({super.key});
@@ -31,7 +32,17 @@ class UsersPage extends StatelessWidget {
               return ListView.builder(
                 itemCount: state.users.length,
                 itemBuilder: (context, index) {
-                  return UserListItem(user: state.users[index]);
+                  final user = state.users[index];
+                  return UserListItem(
+                    user: user,
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => UserDetailsPage(user: user),
+                        ),
+                      );
+                    },
+                  );
                 },
               );
             }
